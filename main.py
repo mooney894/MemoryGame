@@ -64,6 +64,8 @@ class MemoryGame:
             if self.lives == 0:
                 messagebox.showinfo("Game Over", "Game Over!")
                 self.root.destory()
+            else:
+                self.current_level -= 1
                 
     def start_game(self):
         self.start_button.config(state="disabled")
@@ -107,7 +109,7 @@ class MemoryGame:
         user_input = self.entry.get().strip()
         self.user_numbers = list(map(int, user_input.split()))
         self.check_answer()
-        self.root.focus.force()
+        self.root.focus_force()
         self.entry.delete(0, tk.END)
         
 if __name__ == "__main__":
