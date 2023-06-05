@@ -17,8 +17,8 @@ class MemoryGame:
         
         self.current_level = 1
         self.lives = NUM_LIVES
-        self.numbers_to_remember = []
-        self.user_numbers = []
+        self.numbers_to_remember = None
+        self.user_numbers = None
         
         self.label = tk.Label(root, text="Memorise the numbers", font=("Arial", 24))
         self.label.pack(pady=20)
@@ -28,34 +28,25 @@ class MemoryGame:
 
     # Create a function to generate random numbers for each level and section
     def generate_numbers(self):
-        num_count = self.current_level + self.section + 2
-        self.numbers_to_remember = random.sample(range(1, 100), num_count)
+        self.number_to_remember = random.randint(100, 999)
         
 
     # Create a function to display the numbers to the player
-    def display_numbers(self):
-        self.label.configure(text="Memorise the following numbers: ")
+    def display_number(self):
+        self.label.configure(text=f"Memorize the number: {self.number_to_remember}")
         self.root.update()
         time.sleep(3)
         self.label.configure(text="")
         self.root.update()
-        
-        # Display numbers in a separate label
-        numbers_text = " ".join(str(num) for num in self.numbers_to_remember)
-        numbers_label = tk.Label(self.root, text=numbers_text, font=("Arial", 24))
-        numbers_label.pack(pady=10)
-        self.root.update()
-        time.sleep(2)
-        numbers_label.destroy()
     
     # Create a function to get the player's input for each section
     def get_player_input(self):
-        expected_count = self.current_level + self.section + 2
+        expected_count = self.current_level
         self.label.configure(text=f"Enter the {expected_count} numbers you remember: ")
         self.root.update()
         
     def check_answer(self):
-        if self.user_numbers == self.numbers_to_remember:
+        if self.user_numbers == self.number_to_remember:
             messagebox.showinfo("Correct", "Correct!")
         else:
             messagebox.showerror("Incorrect", "Incorrect!")
@@ -78,10 +69,10 @@ class MemoryGame:
 
             for self.section in range(NUM_SECTIONS):
                 self.generate_numbers()
-                self.display_numbers()
+                self.display_number()
                 self.get_player_input()
 
-                self.user_numbers.clear()
+                #self.user_numbers.clear()
 
                 self.entry = tk.Entry(root, font=("Arial", 18))
                 self.entry.pack(pady=10)
