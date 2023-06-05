@@ -46,8 +46,9 @@ class MemoryGame:
         self.root.update()
         
     def check_answer(self):
-        if self.user_numbers == self.number_to_remember:
+        if str (self.user_numbers == self.number_to_remember):
             messagebox.showinfo("Correct", "Correct!")
+            self.next_round() # Call next_round to generate a new number
         else:
             messagebox.showerror("Incorrect", "Incorrect!")
             self.lives -= 1
